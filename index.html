@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reinventando el metabolismo industrial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bl:#d6ecf7;--bl2:#a9d3ea;--gr:#d4eddf;--gr2:#9fd2b5;--ink:#1f3d47;--mut:#4d6b74;--acc:#2e7d7a}
+*{box-sizing:border-box}
+body{margin:0;font:400 1.125rem/1.65 Nunito,system-ui,sans-serif;color:var(--ink);background:linear-gradient(120deg,#f7fcfd,#dff1fa,#e0f6e9,#e9f7fb,#f7fcfd);background-size:300% 300%;animation:bgm 20s ease-in-out infinite alternate;min-height:100vh;display:grid;grid-template-columns:minmax(0,1fr) 230px}
+main{padding:48px clamp(20px,5vw,64px) 210px;max-width:980px;width:100%;margin:0 auto}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.15;margin:0 0 .5em}
+h1{font-size:clamp(2.4rem,5.5vw,4rem);font-weight:800}
+h2{font-size:clamp(1.8rem,3.4vw,2.5rem)}
+h3{font-size:1.25rem}
+p{max-width:68ch;margin:0 0 1em}
+aside{position:sticky;top:0;height:100vh;padding:40px 22px;border-left:1px solid #cfe3e8;background:#ffffffb0;backdrop-filter:blur(6px)}
+aside b{display:block;font:600 1.3rem Fraunces,Georgia,serif;margin:0 0 14px 14px}
+aside a{display:block;padding:10px 14px;border-radius:12px;color:var(--mut);text-decoration:none;font-weight:600;margin-bottom:4px;transition:.2s}
+aside a:hover{background:var(--bl)}
+aside a.on{background:var(--gr);color:var(--ink)}
+section{display:none}
+section.on{display:block;animation:in .5s}
+@keyframes in{from{opacity:0;transform:translateY(8px)}}
+.card{background:#fff;border-radius:22px;padding:22px 24px;box-shadow:0 8px 30px #2e7d7a14}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:20px 0}
+.grid .card:nth-child(3n+1){background:#eef8fc}.grid .card:nth-child(3n+2){background:#eff9f3}.grid .card:nth-child(3n){background:#fff}
+.lead{font-size:1.3rem;color:var(--mut)}
+.place{display:inline-flex;gap:12px;align-items:center;background:#fff;border-radius:999px;padding:10px 22px 10px 14px;box-shadow:0 8px 30px #2e7d7a1f;margin:6px 0 28px;font-weight:700}
+.place svg{flex:none}.place small{display:block;font-weight:400;color:var(--mut);font-size:.95rem;line-height:1.3}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:18px 0}
+.chain span{background:var(--bl);border-radius:14px;padding:8px 14px;font-weight:700}
+.chain span.x{background:#e6e9ee;color:var(--mut)}
+.chain i{font-style:normal;color:var(--acc)}
+.tl{position:relative;display:flex;justify-content:space-between;margin:34px 6px 18px}
+.tl:before{content:"";position:absolute;left:0;right:0;top:19px;height:4px;background:linear-gradient(90deg,var(--bl2),var(--gr2));border-radius:4px}
+.tl button{position:relative;border:0;background:none;font:inherit;cursor:pointer;color:var(--ink);text-align:center;width:33%}
+.tl button b{display:block;width:42px;height:42px;margin:0 auto 8px;border-radius:50%;background:#fff;border:4px solid var(--bl2);transition:.25s}
+.tl button.on b{background:var(--gr2);border-color:var(--acc);transform:scale(1.2)}
+.tl button:focus-visible,.nd:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+.tl button span{font-weight:700;font-size:1rem}
+table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:18px;overflow:hidden;font-size:1rem;box-shadow:0 8px 30px #2e7d7a14}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid #e3eef0}
+th{background:var(--bl)}th:last-child,td:last-child{background:#e9f6ee;font-weight:700}
+.wrap{overflow-x:auto}
+.nd{cursor:pointer}.nd ellipse{transition:.25s}.nd:hover ellipse,.nd.on ellipse{filter:brightness(.93);stroke:var(--acc);stroke-width:3}
+svg text{font-family:Nunito,system-ui,sans-serif;fill:var(--ink)}
+.eq{display:flex;flex-wrap:wrap;gap:14px;align-items:stretch;margin:20px 0}
+.eq .card{flex:1 1 200px}.eq .mid{background:linear-gradient(135deg,var(--bl),var(--gr))}
+.eq em{align-self:center;font:700 2rem Fraunces,serif;color:var(--acc);font-style:normal}
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.pills span{background:var(--gr);border-radius:999px;padding:8px 18px;font-weight:700}
+ul{padding-left:1.2em;max-width:68ch}li{margin-bottom:.5em}
+.src{font-size:.95rem;color:var(--mut)}
+#guide{position:fixed;left:18px;bottom:14px;display:flex;align-items:flex-end;gap:8px;z-index:6;max-width:min(470px,calc(100vw - 36px))}
+#guide svg{flex:none;width:122px;height:auto;filter:drop-shadow(0 6px 10px #2e7d7a33)}
+#say{background:#fff;border-radius:20px 20px 20px 4px;padding:12px 16px;font-size:1rem;line-height:1.45;box-shadow:0 8px 30px #2e7d7a29;margin-bottom:34px}
+.lf{transform-origin:60px 40px;animation:sw 3s ease-in-out infinite alternate}
+@keyframes sw{to{transform:rotate(7deg)}}
+.dash{stroke-dasharray:12 10;animation:fl 2s linear infinite}
+@keyframes fl{to{stroke-dashoffset:-44}}
+@media(max-width:860px){
+body{grid-template-columns:1fr}
+aside{order:-1;height:auto;padding:10px;display:flex;gap:6px;overflow-x:auto;border:0;border-bottom:1px solid #cfe3e8;z-index:7}
+aside b{display:none}aside a{white-space:nowrap;margin:0}
+#guide svg{width:90px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+@keyframes bgm{to{background-position:100% 100%}}
+@keyframes bg{to{background-position:100% 0}}
+@keyframes drift{to{transform:translate(8vmax,6vmax) scale(1.15);filter:blur(70px) hue-rotate(45deg)}}
+@keyframes flo{to{transform:translateY(-7px)}}
+@keyframes bl{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes wv{from{transform:rotate(-14deg)}to{transform:rotate(16deg)}}
+@keyframes bud{0%,100%{fill:#ffe9a8}33%{fill:#ffd1dc}66%{fill:#c9ecff}}
+@keyframes hb{50%{transform:scale(1.3)}}
+@keyframes pp{from{transform:scale(.9);opacity:.3}}
+@keyframes pu{from{fill-opacity:.7}to{fill-opacity:1}}
+@keyframes hue{to{filter:hue-rotate(55deg)}}
+@keyframes bn{50%{transform:translateY(-4px)}}
+.blobs{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.blobs i{position:absolute;width:42vmax;height:42vmax;border-radius:50%;filter:blur(70px);opacity:.55;animation:drift 16s ease-in-out infinite alternate}
+.blobs i:nth-child(1){background:#a9d3ea;left:-10vmax;top:-8vmax}
+.blobs i:nth-child(2){background:#9fe0bd;right:6vmax;top:28vh;animation-duration:21s}
+.blobs i:nth-child(3){background:#bfe6f5;left:24vw;bottom:-18vmax;animation-duration:25s}
+#inicio h1{background:linear-gradient(90deg,#2b86b8,#2e9f6e,#4aa3d8,#2e9f6e);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:bg 8s ease-in-out infinite alternate}
+.loop{animation:hue 8s linear infinite alternate}
+a.place{text-decoration:none;color:var(--ink);transition:.25s}
+a.place:hover,a.place:focus-visible{transform:translateY(-3px);box-shadow:0 14px 34px #2e7d7a33;background:linear-gradient(90deg,#fff,var(--gr))}
+.pin{animation:bn 1.6s ease-in-out infinite}
+aside a.on{background:linear-gradient(90deg,var(--gr),var(--bl),var(--gr));background-size:200% 100%;animation:bg 4s ease-in-out infinite alternate}
+.tl:before{background:linear-gradient(90deg,var(--bl2),var(--gr2),var(--bl2));background-size:200% 100%;animation:bg 5s ease-in-out infinite alternate}
+.pills span{background:linear-gradient(90deg,var(--gr),var(--bl),var(--gr));background-size:200% 100%;animation:bg 6s ease-in-out infinite alternate}
+.eq .mid{background:linear-gradient(135deg,var(--bl),var(--gr),var(--bl));background-size:200% 200%;animation:bg 6s ease-in-out infinite alternate}
+.card{transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 34px #2e7d7a2e}
+.nd ellipse{animation:pu 3.500s ease-in-out infinite alternate}
+.nd:nth-of-type(2) ellipse{animation-delay:-1.2s}.nd:nth-of-type(3) ellipse{animation-delay:-2.400s}
+.flo{animation:flo 2.600s ease-in-out infinite alternate}
+.ey{transform-origin:60px 62px;animation:bl 4.500s infinite;filter:drop-shadow(0 0 4px #4ee0a6)}
+.wv{transform-origin:86px 108px;animation:wv 1.200s ease-in-out infinite alternate}
+.hb{transform-origin:60px 117px;animation:hb 1.200s ease-in-out infinite}
+.bud{animation:bud 4s linear infinite}
+#say.pop{animation:pp .35s ease-out}
+@keyframes rise{from{transform:translateY(6px);opacity:0}30%{opacity:1}to{transform:translateY(-8px);opacity:0}}
+@keyframes fall{from{transform:translateY(-6px);opacity:0}40%{opacity:1}to{transform:translateY(6px);opacity:0}}
+@keyframes tw{from{transform:scale(.5) rotate(0);opacity:.5}to{transform:scale(1.2) rotate(30deg);opacity:1}}
+@keyframes spn{to{transform:rotate(360deg)}}
+@keyframes sw2{to{transform:rotate(4deg)}}
+.bb{animation:rise 2s ease-in infinite}
+.dr{animation:fall 2.400s ease-in-out infinite}
+.tw,.spin,.sw2{transform-box:fill-box;transform-origin:center}
+.tw{animation:tw 1.500s ease-in-out infinite alternate}
+.spin{animation:spn 10s linear infinite}
+.sw2{transform-origin:50% 100%;animation:sw2 2.500s ease-in-out infinite alternate}
+
+:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+aside{top:env(safe-area-inset-top,0px)}
+@media(min-width:861px){aside{height:calc(100vh - env(safe-area-inset-top,0px))}}
+#guide{bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:#eef7fb}
+</style>
+</head>
+<body>
+<div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+<main>
+
+<section id="inicio">
+<a class="place" href="https://www.google.com/maps/search/?api=1&query=Universidad+Nacional+de+Colombia+Sede+La+Nubia+Manizales" target="_blank" rel="noopener" aria-label="Ver en el mapa la Universidad Nacional de Colombia, sede La Nubia, Manizales">
+<svg class="pin" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2e7d7a" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.800 7 12 7 12z" fill="#d4eddf"/><circle cx="12" cy="10" r="2.5"/></svg>
+<div>Universidad Nacional de Colombia<small>Sede La Nubia, Manizales. Toca para ver el mapa</small></div>
+</a>
+<h1>Reinventando el metabolismo industrial</h1>
+<p class="lead">Durante décadas las fábricas aprendieron a limpiar lo que les sobraba. Hoy la pregunta es otra: ¿y si se diseñaran para que nada sobre?</p>
+<svg class="loop" viewBox="0 0 200 110" width="100%" style="max-width:420px;margin:6px 0 14px" aria-hidden="true"><defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#7fbfe0"/><stop offset="1" stop-color="#7cc99b"/></linearGradient></defs><path class="dash" d="M100 55C100 15 38 15 38 55C38 95 100 95 100 55C100 15 162 15 162 55C162 95 100 95 100 55Z" fill="none" stroke="url(#lg)" stroke-width="9" stroke-linecap="round"/></svg>
+<p>Esta investigación, realizada en la Universidad Nacional de Colombia, sede La Nubia, en Manizales, recorre cómo la industria pasó de producir y desechar a copiar a la naturaleza, donde el residuo de unos es el alimento de otros. Sigue las seis paradas con la guía del robot.</p>
+<p><a href="#paradigma" style="color:var(--acc);font-weight:700">Empezar el recorrido</a></p>
+</section>
+
+<section id="paradigma">
+<h2>De producir y desechar a cerrar el ciclo</h2>
+<p>El modelo lineal supone recursos infinitos: el mundo entrega materia prima, la industria la transforma, pasa por distribuidores y hogares, y termina en la basura.</p>
+<div class="chain"><span>Mundo</span><i>→</i><span>Industria</span><i>→</i><span>Distribuidores</span><i>→</i><span>Hogar</span><i>→</i><span class="x">Basura</span></div>
+<p>Dato de UNEP: en 1950 había 7,91 hectáreas de tierra por persona; para 2050 serán 1,63.</p>
+<h3 style="margin-top:28px">Línea de tiempo del paradigma productivo</h3>
+<div class="tl" id="tl"></div>
+<div class="card" id="tlc" aria-live="polite"></div>
+<p style="margin-top:18px">Eliminar los siete desperdicios de Womack y Jones (sobreproducción, esperas, transporte, procesamiento extra, inventario, movimientos y defectos) ya produce una sostenibilidad accidental. El salto es hacerla intencional.</p>
+</section>
+
+<section id="cimientos">
+<h2>Los seis cimientos del diseño sostenible</h2>
+<p>Un proceso industrial sostenible es eficiente, limpio, seguro y usa recursos renovables. Se apoya en seis ideas.</p>
+<div class="grid">
+<div class="card"><h3>Ingeniería de procesos</h3>Es la base de la viabilidad económica.</div>
+<div class="card"><h3>Química verde</h3>Diseña desde la molécula, sin sustancias peligrosas. Tiene 12 principios (Anastas y Warner, 1998).</div>
+<div class="card"><h3>Ingeniería verde</h3>12 principios: prevenir antes que tratar, cerrar ciclos y usar entradas renovables.</div>
+<div class="card"><h3>De la cuna a la cuna</h3>Pone fin a la noción de basura.</div>
+<div class="card"><h3>Ecología industrial</h3>Ve las plantas como una comunidad interrelacionada, igual que un ecosistema.</div>
+<div class="card"><h3>Biomimética</h3>Aplica diseños naturales. Ejemplo: el tractor-araña de John Deere.</div>
+</div>
+<h3>Tres formas de producir</h3>
+<div class="wrap"><table>
+<tr><th></th><th>Tradicional</th><th>Producción más limpia</th><th>Sostenible</th></tr>
+<tr><td>Enfoque</td><td>Rentabilidad lineal</td><td>Estrategia preventiva</td><td>Económico, social y ambiental</td></tr>
+<tr><td>Residuos</td><td>Tratar al final del tubo</td><td>Reducir en la fuente</td><td>Cero desechos</td></tr>
+<tr><td>Ciclo de vida</td><td>Cuna a tumba</td><td>Optimización interna</td><td>Cuna a cuna</td></tr>
+<tr><td>Energía</td><td>Fósil</td><td>Ahorro y eficiencia</td><td>Renovable</td></tr>
+</table></div>
+</section>
+
+<section id="metabolismo">
+<h2>Metabolismo industrial y parques ecoeficientes</h2>
+<p>En un parque industrial ecoeficiente (PIE), el residuo de una fábrica es la materia prima de otra. Toca cada nodo del diagrama.</p>
+<svg viewBox="0 0 760 250" width="100%" role="group" aria-label="Diagrama del parque industrial ecoeficiente">
+<defs><marker id="ar1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2e7d7a"/></marker></defs>
+<g class="nd" tabindex="0" role="button" data-k="0"><ellipse cx="110" cy="115" rx="100" ry="70" fill="#a9d3ea"/><text x="110" y="112" text-anchor="middle" font-weight="700" font-size="19">Fábrica de</text><text x="110" y="136" text-anchor="middle" font-weight="700" font-size="19">manufactura</text></g>
+<g class="nd" tabindex="0" role="button" data-k="1"><ellipse cx="380" cy="115" rx="100" ry="70" fill="#bfe3d0"/><text x="380" y="112" text-anchor="middle" font-weight="700" font-size="19">Planta de</text><text x="380" y="136" text-anchor="middle" font-weight="700" font-size="19">tratamiento</text></g>
+<g class="nd" tabindex="0" role="button" data-k="2"><ellipse cx="650" cy="115" rx="100" ry="70" fill="#d4eddf"/><text x="650" y="112" text-anchor="middle" font-weight="700" font-size="19">Productor</text><text x="650" y="136" text-anchor="middle" font-weight="700" font-size="19">agrícola</text></g>
+<path d="M212 100H278" stroke="#2e7d7a" stroke-width="4" marker-end="url(#ar1)"/><text x="245" y="82" text-anchor="middle" font-size="15">Vapor térmico</text><text x="245" y="98" text-anchor="middle" font-size="15" dy="-.2em" opacity="0">.</text>
+<path d="M482 100H548" stroke="#2e7d7a" stroke-width="4" marker-end="url(#ar1)"/><text x="515" y="82" text-anchor="middle" font-size="15">Lodos orgánicos</text>
+<path d="M110 190C110 240 650 240 650 190" fill="none" stroke="#7cc99b" stroke-width="3" stroke-dasharray="8 8" class="dash"/>
+<text x="380" y="236" text-anchor="middle" font-size="15">Beneficio colectivo mayor que la suma de los individuales</text>
+</svg>
+<div class="card" id="ndc" aria-live="polite" style="margin:14px 0 22px"></div>
+<div class="grid">
+<div class="card"><h3>¿Qué es un PIE?</h3>Un grupo de empresas en una misma zona que cooperan y comparten información, materiales, energía e infraestructura. El concepto se formalizó en 1993.</div>
+<div class="card"><h3>Dos tipos</h3>Empresas con procesos encadenados de distintas actividades (Fairfield, Baltimore) y empresas de una misma actividad (curtiembres de San Benito, Bogotá).</div>
+</div>
+</section>
+
+<section id="celulosa">
+<h2>Caso práctico: el ciclo cerrado de la celulosa</h2>
+<p>La pulpa blanqueada se produce con un diseño autosuficiente. Dos ciclos cerrados reutilizan los químicos y generan energía.</p>
+<div class="wrap"><svg viewBox="0 0 840 356" style="min-width:700px" width="100%" aria-label="Proceso de la pulpa de celulosa con dibujos de cada etapa">
+<defs><marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2e7d7a"/></marker></defs>
+<path d="M50 150H780" stroke="#a9d3ea" stroke-width="8" stroke-linecap="round"/>
+<g transform="translate(50 150)"><circle r="27" fill="#fff" stroke="#2e7d7a" stroke-width="4"/><g class="sw2"><path d="M-17 11L-8 -9L1 11Z" fill="#9fd2b5"/><path d="M-2 13L9 -15L20 13Z" fill="#7cc99b"/><rect x="6" y="13" width="5" height="6" fill="#c9a27e"/><rect x="-10" y="11" width="4" height="6" fill="#c9a27e"/></g></g><g transform="translate(170 150)"><circle r="27" fill="#fff" stroke="#2e7d7a" stroke-width="4"/><rect x="-17" y="-12" width="22" height="8" rx="3" transform="rotate(-18 -6 -8)" fill="#e6c9a6" stroke="#c9a27e" stroke-width="1.500"/><rect x="-4" y="-1" width="22" height="8" rx="3" transform="rotate(12 7 3)" fill="#f0d9bd" stroke="#c9a27e" stroke-width="1.500"/><rect x="-15" y="8" width="18" height="7" rx="3" transform="rotate(-6 -6 11)" fill="#e6c9a6" stroke="#c9a27e" stroke-width="1.500"/></g><g transform="translate(300 150)"><circle r="27" fill="#fff" stroke="#2e7d7a" stroke-width="4"/><rect x="-13" y="-6" width="26" height="22" rx="7" fill="#a9d3ea" stroke="#2e7d7a" stroke-width="2.500"/><rect x="-15" y="-9" width="30" height="6" rx="3" fill="#fff" stroke="#2e7d7a" stroke-width="2.500"/><circle class="bb" cx="-5" cy="2" r="2.500" fill="#fff"/><circle class="bb" style="animation-delay:-.7s" cx="4" cy="6" r="2" fill="#fff"/><path class="bb" style="animation-delay:-1.2s" d="M-4 -14Q-8 -19 -3 -22M5 -14Q1 -19 6 -22" stroke="#8fd0f0" stroke-width="2.500" fill="none" stroke-linecap="round"/></g><g transform="translate(430 150)"><circle r="27" fill="#fff" stroke="#2e7d7a" stroke-width="4"/><path class="dr" d="M0 -15C8 -3 10 3 0 9C-10 3 -8 -3 0 -15Z" fill="#8fd0f0" stroke="#2e7d7a" stroke-width="2"/><g transform="translate(-13 6) scale(.6)"><path class="dr" style="animation-delay:-.8s" d="M0 -15C8 -3 10 3 0 9C-10 3 -8 -3 0 -15Z" fill="#bfe6f5"/></g><g transform="translate(13 8) scale(.6)"><path class="dr" style="animation-delay:-1.6s" d="M0 -15C8 -3 10 3 0 9C-10 3 -8 -3 0 -15Z" fill="#bfe6f5"/></g></g><g transform="translate(560 150)"><circle r="27" fill="#fff" stroke="#2e7d7a" stroke-width="4"/><path d="M-5 -15h10v10l11 20h-32l11-20z" fill="#fff" stroke="#2e7d7a" stroke-width="2.500" stroke-linejoin="round"/><path d="M-10 6h20l5 9h-30z" fill="#bfe6f5"/><path class="tw" d="M15 -14l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#ffd978"/></g><g transform="translate(680 150)"><circle r="27" fill="#fff" stroke="#2e7d7a" stroke-width="4"/><g class="spin"><g stroke="#f2b84b" stroke-width="3" stroke-linecap="round"><path d="M0 -16v-5M0 16v5M-16 0h-5M16 0h5M-11 -11l-3.500 -3.500M11 11l3.500 3.500M-11 11l-3.500 3.500M11 -11l3.500 -3.500"/></g></g><circle r="10" fill="#ffe9a8" stroke="#f2b84b" stroke-width="2.500"/></g><g transform="translate(780 150)"><circle r="27" fill="#d4eddf" stroke="#2e7d7a" stroke-width="4"/><rect x="-14" y="2" width="28" height="9" rx="3" fill="#bfe6f5" stroke="#2e7d7a" stroke-width="2.500"/><rect x="-14" y="-6" width="28" height="9" rx="3" fill="#fff" stroke="#2e7d7a" stroke-width="2.500"/><rect x="-14" y="-14" width="28" height="9" rx="3" fill="#d4eddf" stroke="#2e7d7a" stroke-width="2.500"/></g>
+<g font-size="16" font-weight="600" text-anchor="middle"><text x="50" y="198">Bosque</text><text x="50" y="216">plantado</text><text x="170" y="198">Astillado</text><text x="300" y="198">Cocción</text><text x="430" y="198">Lavado</text><text x="560" y="198">Blanqueo</text><text x="680" y="198">Secado</text><text x="780" y="198">Pulpa</text><text x="780" y="216">blanqueada</text></g>
+<path d="M430 120C430 28 300 28 300 120" fill="none" stroke="#2e7d7a" stroke-width="4" marker-end="url(#ar2)"/>
+<text x="365" y="20" text-anchor="middle" font-size="16" font-weight="700">1. Licor negro: se quema y genera bioenergía</text>
+<path d="M430 232C430 326 300 326 300 232" fill="none" stroke="#2e7d7a" stroke-width="4" marker-end="url(#ar2)"/>
+<text x="365" y="348" text-anchor="middle" font-size="16" font-weight="700">2. Licor verde + cal = licor blanco para cocer</text>
+</svg></div>
+<div class="pills"><span>Menos del 1 % de residuo sólido</span><span>Autosuficiente en energía y químicos</span><span>Excedente de bioenergía</span></div>
+<p>Una planta con esta tecnología opera en Uruguay y podría servir de base para producir pasta papelera de forma sostenible a partir de bosques sembrados de eucalipto.</p>
+</section>
+
+<section id="ingeniero">
+<h2>El nuevo ingeniero</h2>
+<p>Proteger el ambiente no compite con la rentabilidad: es su máximo grado de optimización técnica.</p>
+<div class="eq">
+<div class="card"><h3>Ingeniería industrial</h3>Manufactura esbelta, optimización, reducción de costos y cadena de suministro.</div>
+<em>+</em>
+<div class="card"><h3>Ingeniería química sostenible</h3>Diseño molecular inocuo, energías renovables, biomimética y química verde.</div>
+<em>=</em>
+<div class="card mid"><h3>Rentabilidad circular</h3>Cero desperdicios absolutos y simbiosis industrial.</div>
+</div>
+<h3>Conclusiones</h3>
+<ul>
+<li>Una empresa responsable y competitiva necesita un proceso industrial sostenible en su planta.</li>
+<li>Para diseñarlo se combinan química verde, ingeniería verde, cuna a cuna y biomimética.</li>
+<li>Si la empresa ya opera, la producción más limpia es la estrategia preventiva.</li>
+<li>Es hora de usar las profesiones en beneficio del planeta, sin sacrificar la competitividad.</li>
+</ul>
+<p class="src">Fuentes: Loayza, J. y Silva, V. (2013). Los procesos industriales sostenibles y su contribución en la prevención de problemas ambientales. Industrial Data, 16(1), 108-117. Presentación “Reinventando el metabolismo industrial”.</p>
+</section>
+
+</main>
+
+<aside>
+<b>Índice</b>
+<a href="#inicio">Inicio</a>
+<a href="#paradigma">Paradigma productivo</a>
+<a href="#cimientos">Los cimientos</a>
+<a href="#metabolismo">Metabolismo industrial</a>
+<a href="#celulosa">Caso de la celulosa</a>
+<a href="#ingeniero">El nuevo ingeniero</a>
+</aside>
+
+<div id="guide">
+<svg viewBox="0 0 120 150" aria-label="Brote, el robot guía">
+<defs>
+<linearGradient id="rb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fd0f0"/><stop offset="1" stop-color="#8fe0b4"/></linearGradient>
+<linearGradient id="rh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d4eff7"/></linearGradient>
+<radialGradient id="eg"><stop offset="0" stop-color="#eafff5"/><stop offset="1" stop-color="#4ee0a6"/></radialGradient>
+</defs>
+<ellipse class="sh" cx="60" cy="145" rx="30" ry="5" fill="#2e7d7a" opacity=".2"/>
+<g class="flo">
+<g class="lf"><path d="M60 40Q57 26 60 15" stroke="#4aa876" stroke-width="4" fill="none" stroke-linecap="round"/><ellipse cx="44" cy="22" rx="15" ry="8" transform="rotate(-30 44 22)" fill="#7cc99b"/><ellipse cx="76" cy="22" rx="15" ry="8" transform="rotate(30 76 22)" fill="#9fd2b5"/><circle class="bud" cx="60" cy="11" r="8" fill="#ffe9a8"/><circle cx="60" cy="11" r="3" fill="#ffc86b"/></g>
+<circle cx="20" cy="66" r="6" fill="#a9d3ea" stroke="#2e7d7a" stroke-width="3"/><circle cx="100" cy="66" r="6" fill="#a9d3ea" stroke="#2e7d7a" stroke-width="3"/>
+<rect x="22" y="38" width="76" height="56" rx="22" fill="url(#rh)" stroke="#2e7d7a" stroke-width="3.500"/>
+<rect x="30" y="48" width="60" height="30" rx="14" fill="#1f3d47"/>
+<g class="ey"><ellipse cx="46" cy="62" rx="7" ry="8" fill="url(#eg)"/><ellipse cx="74" cy="62" rx="7" ry="8" fill="url(#eg)"/></g>
+<path d="M52 71Q60 77 68 71" stroke="#4ee0a6" stroke-width="3" fill="none" stroke-linecap="round"/>
+<circle cx="35" cy="86" r="4.500" fill="#ffc9d6" opacity=".85"/><circle cx="85" cy="86" r="4.500" fill="#ffc9d6" opacity=".85"/>
+<rect x="34" y="98" width="52" height="38" rx="14" fill="url(#rb)" stroke="#2e7d7a" stroke-width="3.500"/>
+<circle cx="60" cy="117" r="10" fill="#fff" stroke="#2e7d7a" stroke-width="2.500"/>
+<path class="hb" d="M55 121Q54 111 65 112Q66 121 55 121Z" fill="#4aa876"/>
+<path d="M34 108Q20 114 18 126" stroke="#2e7d7a" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="18" cy="127" r="5" fill="#fff" stroke="#2e7d7a" stroke-width="3"/>
+<g class="wv"><path d="M86 108Q101 102 104 90" stroke="#2e7d7a" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="104" cy="87" r="5.500" fill="#fff" stroke="#2e7d7a" stroke-width="3"/></g>
+<path d="M48 136V143M72 136V143" stroke="#2e7d7a" stroke-width="5" stroke-linecap="round"/>
+</g>
+</svg>
+<div id="say" role="status"></div>
+</div>
+
+<script>
+const M={
+inicio:"¡Hola! Soy Brote. Te acompaño en seis paradas para entender cómo una fábrica puede funcionar como un bosque.",
+paradigma:"Mira cómo cambió la forma de producir. Toca cada fecha de la línea de tiempo.",
+cimientos:"Seis ideas sostienen el diseño sostenible. En la tabla, la última columna es la meta.",
+metabolismo:"Aquí nada se pierde: lo que sobra en un lugar alimenta al siguiente. Toca cada nodo.",
+celulosa:"Casi no queda basura: dos ciclos cerrados reciclan químicos y producen energía.",
+ingeniero:"Ahora te toca a ti: producir bien y cuidar el planeta no se contradicen."};
+const say=t=>{const e=document.getElementById('say');e.textContent=t;e.classList.remove('pop');void e.offsetWidth;e.classList.add('pop')};
+function route(){
+const sec=document.getElementById((location.hash||'#inicio').slice(1))||document.getElementById('inicio');
+document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s===sec));
+document.querySelectorAll('aside a').forEach(a=>a.classList.toggle('on',a.hash==='#'+sec.id));
+say(M[sec.id]);scrollTo(0,0);
+if(sec.id==='paradigma')tl(0);
+if(sec.id==='metabolismo')document.getElementById('ndc').textContent='Selecciona un nodo para ver qué entrega y qué recibe.';
+}
+const T=[
+["1927","Producción en masa (Ford)","Empujar la demanda: producir, vender y almacenar en cantidades masivas.","Producir mucho y guardar mucho tiene un costo: más materia prima extraída y más inventario sin usar."],
+["1977","Manufactura esbelta (Toyota)","Jalar la demanda (Just-in-Time): busca el flujo perfecto y elimina los inventarios en proceso.","Al eliminar desperdicios, la industria se volvió más sostenible, pero casi sin quererlo."],
+["El futuro","Sostenibilidad intencional","Cero desperdicios absolutos: diseño proactivo de ciclos cerrados ecológicos.","Aquí la sostenibilidad deja de ser accidental y se diseña desde el principio."]];
+const tlEl=document.getElementById('tl');
+T.forEach((t,i)=>{const b=document.createElement('button');b.innerHTML='<b></b><span>'+t[0]+'</span>';b.onclick=()=>tl(i);tlEl.appendChild(b)});
+function tl(i){[...tlEl.children].forEach((b,j)=>b.classList.toggle('on',i===j));
+document.getElementById('tlc').innerHTML='<h3>'+T[i][0]+': '+T[i][1]+'</h3><p style="margin:0">'+T[i][2]+'</p>';say(T[i][3])}
+const N=[
+["Fábrica de manufactura","Entrega vapor térmico residual a la planta de tratamiento en lugar de perderlo.","La fábrica no pierde su calor: lo convierte en recurso para su vecina."],
+["Planta de tratamiento","Aprovecha el vapor y entrega lodos orgánicos al productor agrícola.","Esta planta es el puente: recibe lo que sobra y lo transforma en algo útil."],
+["Productor agrícola","Recibe los lodos orgánicos como insumo para sus cultivos.","El ciclo se cierra: lo que fue residuo termina alimentando la tierra."]];
+document.querySelectorAll('.nd').forEach(n=>{n.onclick=()=>{const d=N[n.dataset.k];
+document.querySelectorAll('.nd').forEach(x=>x.classList.toggle('on',x===n));
+document.getElementById('ndc').innerHTML='<h3 style="margin-bottom:.2em">'+d[0]+'</h3><p style="margin:0">'+d[1]+'</p>';say(d[2])};
+n.onkeydown=e=>{if(e.key==='Enter'||e.key===' ')n.click()}});
+addEventListener('hashchange',route);route();
+</script>
+</body>
+</html>
